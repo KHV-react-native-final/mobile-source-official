@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "256564544130",
+    "firebase_url": "https://khv-rn-final-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "khv-rn-final",
     "storage_bucket": "khv-rn-final.appspot.com"
   },
@@ -8,6 +9,35 @@
     {
       "client_info": {
         "mobilesdk_app_id": "1:256564544130:android:b072c092b972ddd6952a9b",
+        "android_client_info": {
+          "package_name": "com.khv"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256564544130-iuk3skab6g7fketro2nemvut2thd9mgo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZjb3K2jQocJA9mRxkjQOhnWInHaXjxKM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256564544130-iuk3skab6g7fketro2nemvut2thd9mgo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256564544130:android:8da8959dcab856de952a9b",
         "android_client_info": {
           "package_name": "com.reactfinal"
         }

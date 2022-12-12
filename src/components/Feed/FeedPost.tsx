@@ -1,18 +1,39 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState } from "react"
 import { Avatar } from "../../components";
+import { faBookmark, faHeart } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome"
+import { IFeedPost } from "../../types";
+import { WishList } from "../../services/firebase";
+import { RootStateType } from "../../redux-stores";
+import { useSelector } from "react-redux";
 
-function FeedPost() {
+function FeedPost(props: IFeedPost) {
+  const author = useSelector((state: RootStateType) => state.auth.author);
+  const [love, setLove] = useState<boolean>(props.isLove)
+
+  useEffect(() => {
+    setLove(props.isLove);
+  }, [props.isLove])
+
+  function onLovePress() {
+    setLove((pre) => {
+      if (!pre) WishList.love(author.uid, { postId: props.id, img: props.postImage })
+      else WishList.disLove(author.uid, props.id)
+      return !pre
+    })
+  }
+
   function FeedPostHeader() {
     return (
       <View style={FeedPostHeaderStyle.container}>
         <View style={FeedPostHeaderStyle.userInfo}>
           <Avatar
             style={FeedPostHeaderStyle.userAvatar}
-            url="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"
+            url={props.avatar}
           />
-          <Text style={FeedPostHeaderStyle.userName}>vu_chim_sau</Text>
+          <Text style={FeedPostHeaderStyle.userName}>{props.username}</Text>
         </View>
-        <Text>Icon</Text>
       </View>
     );
   }
@@ -23,31 +44,14 @@ function FeedPost() {
         <Image
           style={FeedPostBodyStyle.image}
           source={{
-            uri: "https://images.unsplash.com/photo-1670718221502-42bee4ee96c7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
+            uri: props.postImage
           }}
         />
-      </View>
-    );
-  }
-
-  function FeedBottom() {
-    return (
-      <View style={{ paddingTop: 15, paddingHorizontal: 15 }}>
-        <View
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Text>Love</Text>
-            <Text>Comment</Text>
-          </View>
-          <View>
-            <Text>Save</Text>
-          </View>
+        <View style={{ paddingHorizontal: 15, paddingTop: 10, display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+          <Text> {">"} {props.content}</Text>
+          <TouchableOpacity onPress={onLovePress}>
+            <FontAwesomeIcon color={love ? "red" : "black"} size={30} icon={faHeart} />
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -57,7 +61,7 @@ function FeedPost() {
     <View style={FeedPostStyle.container}>
       <FeedPostHeader />
       <FeedPostBody />
-      <FeedBottom />
+      {/* <FeedBottom /> */}
     </View>
   );
 }

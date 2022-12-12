@@ -47,7 +47,6 @@ const uploadImg = async (fileDetails: DocumentPickerResponse) => {
 
   // await fetch('https://api.imgur.com/3/image', requestOptions)
   //   .then(response => response.json())
-  //   .then(result => console.log("result: ", result))
   //   .catch(error => console.log('error: ', error));
 };
 export {uploadImg};
